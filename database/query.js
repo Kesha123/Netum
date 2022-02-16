@@ -47,7 +47,22 @@ const getAllPeople = (req, res) => {
 }
 
 // Update one person
-const updatePerson = (req, res) => {}
+const updatePerson = (req, res) => {
+    const updatedPerson = req.body;
+
+    const query = {
+        text: 'UPDATE persons SET firstname=$1, lastname=$2, age=$3 WHERE id = $4',
+        values: [updatedPerson.firstname, updatedPerson.lastname, updatedPerson.age, req.params.id],
+    }
+
+    db.query(query, (err, res) => {
+        if (err) {
+          return console.error('Error executing query', err.stack)
+        }
+    })
+    
+    res.json(updatedPerson);
+}
 
 // Get one person
 const getPerson = (req, res) => {}
