@@ -19,7 +19,20 @@ const addPerson = (req, res) => {
 }
 
 // Delete person
-const deletePerson = (req, res) => {}
+const deletePerson = (req, res) => {
+    const query = {
+        text: 'DELETE FROM persons WHERE id = $1',
+        values: [req.params.id]
+    }
+
+    db.query(query, (err, result) => {
+        if (err) {
+            return console.log('Error executing query', err.stack);
+        }
+    })
+
+    res.status(204).end();
+}
 
 // Search all people
 const getAllPeople = (req, res) => {
