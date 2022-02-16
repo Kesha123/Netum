@@ -22,7 +22,16 @@ const addPerson = (req, res) => {
 const deletePerson = (req, res) => {}
 
 // Search all people
-const getAllPeople = (req, res) => {}
+const getAllPeople = (req, res) => {
+    db.query('SELECT * FROM persons', (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.json(result.rows);
+        }
+    })
+}
 
 // Update one person
 const updatePerson = (req, res) => {}
