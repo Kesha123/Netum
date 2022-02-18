@@ -84,10 +84,28 @@ const getPerson = (req, res) => {
       })
 }
 
+
+// Get all people and sort
+const getSortAllPeople = (req, res) => {
+
+    const query = `SELECT * FROM persons ORDER BY ${req.params.column} ${req.params.order}`
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.json(result.rows);
+        }
+    })
+}
+
+
 module.exports = {
     addPerson: addPerson,
     deletePerson: deletePerson,
     getAllPeople: getAllPeople,
     updatePerson: updatePerson,
-    getPerson: getPerson
+    getPerson: getPerson,
+    getSortAllPeople: getSortAllPeople
 }

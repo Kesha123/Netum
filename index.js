@@ -7,6 +7,13 @@ const port = 3000;
 const app = express();
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();});
+
 
 // Add a person
 app.post('/api/person', query.addPerson);
@@ -22,6 +29,9 @@ app.put('/api/person/:id', query.updatePerson);
 
 // Get one person
 app.get('/api/person/:id', query.getPerson);
+
+// Get all people and sort
+app.get('/api/person/:column/:order', query.getSortAllPeople);
 
 
 app.listen(port, () => {
